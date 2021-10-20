@@ -6,14 +6,16 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
+      - run: echo $AWS_SECRET_ACCESS_KEY
       - run:
           name: "Deploy AWS infrastructure"
           command: |
-            aws cloudformation deploy \
+            aws cloudformation create-stack \
             --stack-name ci-infra \
             --template-body template.yaml \
             --region us-east-2 \
             --parameters parameters.json
+
 
 
 workflows:
