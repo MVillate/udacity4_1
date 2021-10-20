@@ -1,0 +1,14 @@
+[
+    {
+    "ParameterKey": "SubnetId",
+    "ParameterValue": "subnet-081c9881210208394"
+    },
+    {
+    "ParameterKey": "WebServerInstanceType",
+    "ParameterValue": "t2.micro"
+    },
+    {
+    "ParameterKey": "AMI",
+    "ParameterValue": "ami-00399ec92321828f5"
+    }
+]
