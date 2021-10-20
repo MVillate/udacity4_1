@@ -10,5 +10,9 @@
     {
     "ParameterKey": "AMI",
     "ParameterValue": "ami-00399ec92321828f5"
+    },
+    {
+    "ParameterKey": "vpcId",
+    "ParameterValue": "vpc-0df38d24db44a311f"
     }
 ]
