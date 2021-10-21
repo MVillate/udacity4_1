@@ -1,5 +1,22 @@
 
 version: 2.1
+
+commands:
+  destroy_env:
+    steps:
+      - run:
+          name: "Remove srv stack"
+          command: |
+            aws cloudformation delete-stack \
+            --stack-name ci-srv 
+      - run: sleep 60
+      - run:
+          name: "Remove nw stack"
+          command: |
+            aws cloudformation delete-stack \
+            --stack-name ci-nw 
+
+
 jobs:
   deploy_nw:
     docker:
@@ -74,7 +91,17 @@ jobs:
             ansible-playbook -i inventory main.yaml
 
 
-
+  smoke_test:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Simulate error
+          command: |
+            return 1
+      - destroy_env
+        when: on_fail
 
 workflows:
   aws-ci-workflow:
@@ -86,3 +113,5 @@ workflows:
           requires: ['deploy_srv']
       - configure_srv:
           requires: ['create_inv']
+      - smoke_test:
+          requires: ['configure_srv']
