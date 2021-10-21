@@ -35,9 +35,10 @@ jobs:
 
   create_inv:
     docker:
-      - image: amazon/aws-cli
+      - image: cszubert/awscli-python
     steps:
       - checkout
+      - run: echo $AWS_SECRET_ACCESS_KEY
       - run:
           name: "create ansible inventory file"
           command: |
@@ -52,6 +53,14 @@ jobs:
           paths:
             - inventory
 
+  configure_srv:
+    docker:
+      - image: python
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: ls
+      - run: pwd
 
 workflows:
   aws-ci-workflow:
@@ -61,3 +70,5 @@ workflows:
           requires: ['deploy_nw']
       - create_inv:
           requires: ['deploy_srv']
+      - configure_srv:
+          requires: ['create_inv']
