@@ -15,7 +15,7 @@ jobs:
             --template-body file://template_nw.yaml \
             --region us-east-2 \
             --parameters file://params_nw.json
-      - run: sleep 30
+      - run: sleep 60
 
   deploy_srv:
     docker:
