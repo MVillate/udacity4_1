@@ -50,9 +50,9 @@ jobs:
       - run: ls
       - run: pwd
       - persist_to_workspace:
-          root: ~/project
+          root: ~/
           paths:
-            - inventory
+            - project/inventory
 
   configure_srv:
     docker:
@@ -62,6 +62,7 @@ jobs:
           at: ~/
       - run: ls
       - run: pwd
+      - run: cat inventory
       - run: cat ~/inventory
 
 
