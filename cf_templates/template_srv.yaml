@@ -17,7 +17,7 @@ Parameters:
 
 Resources:
 
-  EC2Instance:
+  EC2Instance1:
     Type: 'AWS::EC2::Instance'
     Properties:
       SecurityGroupIds:
@@ -28,6 +28,18 @@ Resources:
       SubnetId : 
         Fn::ImportValue:
           !Sub "${EnvironmentName}-PUB1-SN"
+
+  EC2Instance2:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SecurityGroupIds:
+      - !Ref InstanceSecurityGroup
+      ImageId: !Ref AMI
+      KeyName: aws_mck_ohio
+      InstanceType: !Ref WebServerInstanceType
+      SubnetId : 
+        Fn::ImportValue:
+          !Sub "${EnvironmentName}-PUB2-SN"
 
   InstanceSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'

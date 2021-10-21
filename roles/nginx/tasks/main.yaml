@@ -1,0 +1,11 @@
+---
+- name: "update apt packages."
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: Install nginx (state=present is optional)
+  become: yes
+  apt:
+    name: nginx
+    state: present

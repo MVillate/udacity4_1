@@ -39,7 +39,6 @@ jobs:
     steps:
       - checkout
       - run:  yum install -y tar gzip
-      - run: echo $AWS_SECRET_ACCESS_KEY
       - run: echo "[all]" > inventory
       - run:
           name: "create ansible inventory file"
@@ -56,14 +55,25 @@ jobs:
 
   configure_srv:
     docker:
-      - image: python
+      - image: python:3.10.0-alpine3.14
     steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["85:aa:65:37:70:da:ec:b2:79:db:af:99:23:6a:12:74"]
       - attach_workspace:
           at: ~/
-      - run: ls
+      - run: 
+          name: Install dependencies
+          command: |
+            apk add --update ansible
       - run: pwd
       - run: cat inventory
-      - run: cat ~/inventory
+      - run:
+          name: Configure server
+          command: |
+            ansible-playbook -i inventory main.yml
+
+
 
 
 workflows:
