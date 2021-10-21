@@ -100,7 +100,7 @@ jobs:
           name: Simulate error
           command: |
             return 1
-      - destroy_env
+      - destroy_env:
           when: on_fail
 
 workflows:
