@@ -6,12 +6,15 @@ commands:
     steps:
       - run:
           name: "Remove srv stack"
+          when: on_fail
           command: |
             aws cloudformation delete-stack \
             --stack-name ci-srv 
       - run: sleep 60
+        when: on_fail
       - run:
           name: "Remove nw stack"
+          when: on_fail
           command: |
             aws cloudformation delete-stack \
             --stack-name ci-nw 
@@ -100,8 +103,7 @@ jobs:
           name: Simulate error
           command: |
             return 1
-      - destroy_env:
-          when: on_fail
+      - destroy_env
 
 workflows:
   aws-ci-workflow:
