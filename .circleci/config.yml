@@ -26,7 +26,7 @@ jobs:
           name: "Deploy AWS srv"
           command: |
             aws cloudformation create-stack \
-            --stack-name ci-nw \
+            --stack-name ci-srv \
             --template-body file://template_srv.yaml \
             --region us-east-2 \
             --parameters file://params_srv.json
