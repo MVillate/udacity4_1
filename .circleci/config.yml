@@ -35,7 +35,7 @@ jobs:
 
   create_inv:
     docker:
-      - image: cszubert/awscli-python
+      - image: amazon/aws-cli
     steps:
       - checkout
       - run: echo $AWS_SECRET_ACCESS_KEY
