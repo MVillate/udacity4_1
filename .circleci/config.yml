@@ -101,7 +101,7 @@ jobs:
           command: |
             return 1
       - destroy_env
-        when: on_fail
+          when: on_fail
 
 workflows:
   aws-ci-workflow:
