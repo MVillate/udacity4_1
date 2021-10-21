@@ -15,6 +15,7 @@ jobs:
             --template-body file://template_nw.yaml \
             --region us-east-2 \
             --parameters file://params_nw.json
+      - run: sleep 30
 
   deploy_srv:
     docker:
@@ -30,7 +31,6 @@ jobs:
             --template-body file://template_srv.yaml \
             --region us-east-2 \
             --parameters file://params_srv.json
-
 
 workflows:
   aws-ci-workflow:
