@@ -38,6 +38,7 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
+      - run:  yum install -y tar gzip
       - run: echo $AWS_SECRET_ACCESS_KEY
       - run: echo "[all]" > inventory
       - run:
@@ -61,6 +62,8 @@ jobs:
           at: ~/
       - run: ls
       - run: pwd
+      - run: cat ~/inventory
+
 
 workflows:
   aws-ci-workflow:
