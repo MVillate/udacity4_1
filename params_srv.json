@@ -1,0 +1,14 @@
+[
+    {
+    "ParameterKey": "EnvironmentName",
+    "ParameterValue": "CircleCIProject"
+    },
+    {
+    "ParameterKey": "WebServerInstanceType",
+    "ParameterValue": "t2.micro"
+    },
+    {
+    "ParameterKey": "AMI",
+    "ParameterValue": "ami-00399ec92321828f5"
+    }
+]

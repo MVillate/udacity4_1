@@ -1,24 +1,40 @@
 
 version: 2.1
 jobs:
-  deploy_infra:
+  deploy_nw:
     docker:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - run: echo $AWS_SECRET_ACCESS_KEY
+      # - run: echo $AWS_SECRET_ACCESS_KEY
       - run:
-          name: "Deploy AWS infrastructure"
+          name: "Deploy AWS nw"
           command: |
             aws cloudformation create-stack \
-            --stack-name ci-infra \
-            --template-body file://template.yaml \
+            --stack-name ci-nw \
+            --template-body file://template_nw.yaml \
             --region us-east-2 \
-            --parameters file://params.json
+            --parameters file://params_nw.json
 
+  deploy_srv:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      # - run: echo $AWS_SECRET_ACCESS_KEY
+      - run:
+          name: "Deploy AWS srv"
+          command: |
+            aws cloudformation create-stack \
+            --stack-name ci-nw \
+            --template-body file://template_srv.yaml \
+            --region us-east-2 \
+            --parameters file://params_srv.json
 
 
 workflows:
   aws-ci-workflow:
     jobs:
       - deploy_infra
+      - deploy_srv:
+          requires: ['deploy_infra']
