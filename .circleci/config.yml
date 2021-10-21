@@ -60,3 +60,5 @@ workflows:
       - deploy_nw
       - deploy_srv:
           requires: ['deploy_nw']
+      - create_inv:
+          requires: ['deploy_srv']
