@@ -39,10 +39,10 @@ jobs:
     steps:
       - checkout
       - run: echo $AWS_SECRET_ACCESS_KEY
+      - run: echo "[all]" > inventory
       - run:
           name: "create ansible inventory file"
           command: |
-            echo "[all]" > inventory
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --output text >> inventory
