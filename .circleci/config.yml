@@ -12,9 +12,9 @@ jobs:
           command: |
             aws cloudformation create-stack \
             --stack-name ci-nw \
-            --template-body file://template_nw.yaml \
+            --template-body file://cf_templates/template_nw.yaml \
             --region us-east-2 \
-            --parameters file://params_nw.json
+            --parameters file://cf_templates/params_nw.json
       - run: sleep 60
 
   deploy_srv:
@@ -28,9 +28,31 @@ jobs:
           command: |
             aws cloudformation create-stack \
             --stack-name ci-srv \
-            --template-body file://template_srv.yaml \
+            --template-body file://cf_templates/template_srv.yaml \
             --region us-east-2 \
-            --parameters file://params_srv.json
+            --parameters file://cf_templates/params_srv.json
+      - run: sleep 60
+
+  create_inv:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: "create ansible inventory file"
+          command: |
+            echo "[all]" > inventory
+            aws ec2 describe-instances \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --output text >> inventory
+      - run: more inventory
+      - run: ls
+      - run: pwd
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - inventory
+
 
 workflows:
   aws-ci-workflow:
