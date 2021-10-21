@@ -37,4 +37,4 @@ workflows:
     jobs:
       - deploy_nw
       - deploy_srv:
-          requires: ['deploy_infra']
+          requires: ['deploy_nw']
