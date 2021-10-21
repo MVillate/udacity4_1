@@ -10,14 +10,14 @@ commands:
           command: |
             aws cloudformation delete-stack \
             --stack-name ci-srv 
-      - run: sleep 60
-        when: on_fail
-      - run:
-          name: "Remove nw stack"
-          when: on_fail
-          command: |
-            aws cloudformation delete-stack \
-            --stack-name ci-nw 
+      # - run: sleep 60
+      #   when: on_fail
+      # - run:
+      #     name: "Remove nw stack"
+      #     when: on_fail
+      #     command: |
+      #       aws cloudformation delete-stack \
+      #       --stack-name ci-nw 
 
 
 jobs:
