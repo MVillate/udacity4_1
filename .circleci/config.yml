@@ -21,8 +21,6 @@ commands:
             aws cloudformation delete-stack \
             --stack-name ci-nw
 
-
-
 jobs:
   deploy_nw:
     docker:
@@ -95,7 +93,6 @@ jobs:
           name: Configure server
           command: |
             ansible-playbook -i inventory main.yaml
-
 
   smoke_test:
     docker:
