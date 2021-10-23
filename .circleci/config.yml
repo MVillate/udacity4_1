@@ -108,7 +108,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            ansible-playbook -i inventory main.yaml
+            ansible-playbook -i inventory main.yaml -u $REMOTE_USERNAME
 
   # smoke_test:
   #   docker:
